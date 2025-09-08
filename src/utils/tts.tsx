@@ -31,4 +31,5 @@ export function speak(text: string) {
   if (!text) return;
   Tts.stop();
   Tts.speak(text);
+  console.log("🗣️ Speaking:", text);
 }

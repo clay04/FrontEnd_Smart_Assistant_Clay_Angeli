@@ -7,7 +7,7 @@ import { useMicSegmenter } from '../../hog/useMicSegmenter';
 import { uploadToBackend } from '../../utils/uploader';
 import type { BackendResponse } from '../../types';
 
-const BACKEND_ENDPOINT = 'http://10.180.117.162:5000/voice/assistant'; // IP Backend
+const BACKEND_ENDPOINT = 'http://192.168.1.53:5000/voice/assistant'; // IP Backend
 
 const Home: React.FC = () => {
   const camRef = useRef<CameraStreamHandle>(null);

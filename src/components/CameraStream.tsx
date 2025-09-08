@@ -12,8 +12,13 @@ type Props = {
 };
 
 const CameraStream = forwardRef<CameraStreamHandle, Props>(({ onReady }, ref) => {
-  const devices = useCameraDevices();
-  const device = devices.back ?? devices.external;
+  //const devices = useCameraDevices();
+  const devices: CameraDevice[] = useCameraDevices(); 
+
+  //console.log("Available camera devices:", JSON.stringify(devices, null, 2)); //Log untuk mengetahui device kamera apa saja yang tersedia
+
+  //const device = devices.back ?? devices.external;
+  const device = devices.find((d) => d.position === 'back') ?? devices[0];
   const camRef = useRef<Camera>(null);
   const [ready, setReady] = useState(false);
 
@@ -31,7 +36,7 @@ const CameraStream = forwardRef<CameraStreamHandle, Props>(({ onReady }, ref) =>
         if (!photo?.path) return null;
         const fixedPath = photo.path.startsWith("file://")
           ? photo.path
-          : `file://${photo.path}`;
+          : "file://" + photo.path;
         console.log("📸 Snapshot taken:", fixedPath);
         return fixedPath;
       } catch (e) {

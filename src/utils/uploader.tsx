@@ -14,7 +14,7 @@ export async function uploadToBackend(
   if (photoPath) {
     console.log("📸 SNAP path:", photoPath);   // <-- cek path sebelum upload
     form.append('image', {
-        uri: photoPath.startsWith('file://') ? photoPath : `file://${photoPath}`,
+        uri: photoPath,
         type: 'image/jpeg',
         name: `photo_${Date.now()}.jpg`,
     } as any);
@@ -26,8 +26,8 @@ export async function uploadToBackend(
   if (audioPath) {
     console.log("🎤 AUDIO path:", audioPath);
     form.append('audio', {
-      uri: audioPath.startsWith('file://') ? audioPath : `file://${audioPath}`,
-      type: Platform.OS === 'ios' ? 'audio/m4a' : 'audio/m4a',
+      uri: Platform.OS === 'android' ? audioPath.startsWith('file://') ? audioPath : `file://${audioPath}` : audioPath,
+      type: 'audio/m4a',
       name: `voice_${Date.now()}.m4a`,
     } as any);
   }
@@ -36,7 +36,7 @@ export async function uploadToBackend(
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'multipart/form-data', // ✅ wajib
+      //'Content-Type': 'multipart/form-data', // ✅ wajib
     },
     body: form,
   });
